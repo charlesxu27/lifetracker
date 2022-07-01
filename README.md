@@ -39,7 +39,7 @@ Implement any of the following features to improve the application:
 ### Walkthrough Video
 
 Gif Walkthrough:
-![me]("walkthrough.gif")
+<img src='walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ### Reflection
 
