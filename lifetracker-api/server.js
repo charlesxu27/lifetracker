@@ -2,7 +2,8 @@ const express = require("express")
 const cors = require("cors")
 const morgan = require("morgan")
 const { PORT } = require("./config")
-// const authRoutes = require("./routes/auth")
+require("colors")
+const authRoutes = require("./routes/auth")
 
 const { BadRequestError, NotFoundError } = require("./utils/errors")
 
@@ -15,7 +16,7 @@ app.use(express.json())
 // log request info
 app.use(morgan("tiny"))
 
-// app.use("/auth", authRoutes)
+app.use("/auth", authRoutes)
 
 // if endpoint does not match defined endpoints, we call this middleware
 app.use((req, res, next) => {
@@ -35,5 +36,5 @@ app.use((err, req, res, next) => {
 // const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on PORT ${PORT} 🤘`)
+    console.log(`🚀 Server running on PORT ${PORT} 🤘`.bgGreen)
 })

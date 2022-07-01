@@ -84,6 +84,8 @@ export default function RegistrationPage({ setAppState }) {
   return (
     <div className="Register">
 
+      <h1>Register</h1>
+
       <div className="form">
 
         <div className="input-field">
@@ -99,7 +101,7 @@ export default function RegistrationPage({ setAppState }) {
         </div>
 
         <div className="input-field">
-          <label htmlFor="username">Email</label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             name="username"
@@ -113,11 +115,11 @@ export default function RegistrationPage({ setAppState }) {
 
         <div className="split-inputs">
           <div className="input-field">
-            <label htmlFor="name">First Name</label>
+            <label htmlFor="name"></label>
             <input
               type="text"
               name="firstName"
-              placeholder="Jane"
+              placeholder="First Name"
               value={form.firstName}
               onChange={handleOnInputChange}
             />
@@ -125,11 +127,11 @@ export default function RegistrationPage({ setAppState }) {
           </div>
 
           <div className="input-field">
-            <label htmlFor="name">Last Name</label>
+            <label htmlFor="name"></label>
             <input
               type="text"
               name="lastName"
-              placeholder="Doe"
+              placeholder="Last Name"
               value={form.lastName}
               onChange={handleOnInputChange}
             />

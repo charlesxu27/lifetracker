@@ -35,7 +35,7 @@ export default function LoginPage({ setAppState }) {
       if (res?.data) {
         setAppState(res.data)
         setIsLoading(false)
-        // navigate("/portal")
+        navigate("/activity")
       } else {
         setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
         setIsLoading(false)
@@ -50,6 +50,7 @@ export default function LoginPage({ setAppState }) {
 
   return (
     <div className="Login">
+      <h1>Login</h1>
       <div className="form">
         <div className="input-field">
           <label htmlFor="email">Email</label>
@@ -78,6 +79,12 @@ export default function LoginPage({ setAppState }) {
         <button className="btn" disabled={isLoading} onClick={handleOnSubmit}>
           {isLoading ? "Loading..." : "Login"}
         </button>
+      </div>
+
+      <div className="footer">
+        <p>
+          Don't have an account? Register <Link to="/register">here</Link>
+        </p>
       </div>
     </div>
   )

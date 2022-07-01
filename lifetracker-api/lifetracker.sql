@@ -5,4 +5,4 @@ DROP DATABASE lifetracker;
 CREATE DATABASE lifetracker;
 \connect lifetracker;
 
-\i vaccine-hub-schema.sql
+\i lifetracker-schema.sql
