@@ -68,7 +68,7 @@ export default function RegistrationPage({ setAppState }) {
       if (res?.data?.user) {
         setAppState(res.data)
         setIsLoading(false)
-        navigate("/portal")
+        navigate("/login")
       } else {
         setErrors((e) => ({ ...e, form: "Something went wrong with registration" }))
         setIsLoading(false)

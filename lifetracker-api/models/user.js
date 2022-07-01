@@ -9,9 +9,9 @@ class User {
         return {
             username: user.username,
             password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            email: user.email
         }
     }
 
@@ -95,7 +95,7 @@ class User {
         if (!email) {
             throw new BadRequestError(`No email provided!`)
         }
-        const query = `SELECT * FROM users WHERE email = $1` // best practice when inserting params
+        const query = `SELECT * FROM users WHERE email = $1;` // best practice when inserting params
         // query returns a promise
         // https://node-postgres.com/api/client
         const result = await db.query(query, [email.toLowerCase()])
@@ -108,7 +108,7 @@ class User {
         if (!username) {
             throw new BadRequestError(`No email provided`)
         }
-        const query = `SELECT * FROM users WHERE username = $1`
+        const query = `SELECT * FROM users WHERE username = $1;`
         const result = await db.query(query, [username])
         const user = result.rows[0]
 
