@@ -38,8 +38,7 @@ Implement any of the following features to improve the application:
 
 ### Walkthrough Video
 
-Gif Walkthrough:
-<img src='walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='walkthrough.gif' title='Video Walkthrough' width=800px alt='Video Walkthrough' />
 
 ### Reflection
 
