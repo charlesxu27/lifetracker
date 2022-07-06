@@ -17,7 +17,7 @@ export default function App() {
     <div className="app">
       <React.Fragment>
         <BrowserRouter>
-          <Navbar />
+          <Navbar appState={appState} setAppState={setAppState} />
           <main>
             <Routes>
               <Route path="/" element={

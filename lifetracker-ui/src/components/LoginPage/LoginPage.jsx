@@ -36,9 +36,11 @@ export default function LoginPage({ setAppState }) {
         setAppState(res.data)
         setIsLoading(false)
         navigate("/activity")
+        console.log(JSON.stringify(res.data))
       } else {
         setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
         setIsLoading(false)
+        console.log(JSON.stringify(res.data))
       }
     } catch (err) {
       console.log(err)
