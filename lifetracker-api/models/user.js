@@ -35,9 +35,6 @@ class User {
             }
         }
 
-        // look up user in DB by email
-        // if found, compare passwords
-        // if password matches DB password, return the user
         // otherwise, throw unauthorized error
         throw new UnauthorizedError("Invalid Email or Password")
     }
@@ -90,6 +87,7 @@ class User {
 
         return User.makePublicUser(user)
     }
+
 
     static async fetchUserByEmail(email) {
         if (!email) {

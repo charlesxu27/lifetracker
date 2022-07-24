@@ -2,6 +2,7 @@ const express = require("express")
 const User = require("../models/user")
 const router = express.Router()
 
+// all the routes for authentication
 router.post("/login", async (req, res, next) => {
     try {
         // take login info and try to authenticate
