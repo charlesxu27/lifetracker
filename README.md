@@ -198,7 +198,7 @@ The components in the `App.jsx` file should render the following components (alo
       - [x] Create a utility method called `request` that uses `axios` to issue HTTP requests
       - [x] Add a `login` method that uses the `request` method to send an HTTP request to the `auth/login` endpoint
       - [x] Add a `signup` method that uses the `request` method to send an HTTP request to the `auth/register` endpoint
-      - [ ] Add a `fetchUserFromToken` method that uses the `request` method to send an HTTP request to the `auth/me` endpoint
+      - [x] Add a `fetchUserFromToken` method that uses the `request` method to send an HTTP request to the `auth/me` endpoint
       - [ ] **Add as many other methods as needed when making API requests**
 
   - [x] Create an **`auth`** context:

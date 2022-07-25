@@ -34,16 +34,16 @@ class ApiClient {
         }
     }
 
-    login() {
-        this.request(post, {}, "/auth/login")
+    async loginUser(credentials) {
+        return await this.request({ endpoint: 'auth/login', method: 'POST', data: credentials})
     }
 
-    signup() {
-        this.request(post, {}, "/auth/register")
+    async registerUser(credentials) {
+        return await this.request({ endpoint: 'auth/register', method: 'POST', data: credentials})
     }
 
-    fetchUserFromToken() {
-        this.request(post, {}, "/auth/me")
+    async fetchUserFromToken() {
+        return await this.request({ endpoint: 'auth/me', method: 'GET' })
     }
 
 
