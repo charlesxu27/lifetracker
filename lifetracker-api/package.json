@@ -4,7 +4,7 @@
   "description": "Express backend for the LifeTracker application",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

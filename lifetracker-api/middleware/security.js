@@ -33,6 +33,7 @@ const extractUserFromJwt = (req, res, next) => {
 const requireAuthenticatedUser = (req, res, next) => {
     try {
         const { user } = res.locals // TODO: how do we know res.locals has the payload? Ohhhh from the previous middleware extractUserFromJwt()?
+        // btw { user } means you are getting res.locals.user here
         if (!user?.email) {
             throw new UnauthorizedError()
         }
