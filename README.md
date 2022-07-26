@@ -2,7 +2,7 @@
 
 Submitted by: **Charles Xu**
 
-Deployed Application: [Lifetracker Deployed Site](ADD_LINK_HERE)
+Deployed Application: [Lifetracker Deployed Site](https://lifetracker-app-1.herokuapp.com)
 
 ## Application Features
 
