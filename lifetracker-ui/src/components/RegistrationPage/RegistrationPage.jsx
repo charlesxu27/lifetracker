@@ -1,13 +1,17 @@
 import React from 'react'
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import axios from "axios"
 import "./RegistrationPage.css"
+import ApiClient from "../../services/apiClient"
+import { useAuthContext } from '../../contexts/auth'
 
-export default function RegistrationPage({ setAppState }) {
+export default function RegistrationPage() {
+
+  const { user, setUser, isProcessing, setIsProcessing, error, setError, authorized, registerUser } = useAuthContext
+
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState([])
+
   const [form, setForm] = useState({
     email: "",
     username: "",
@@ -43,43 +47,15 @@ export default function RegistrationPage({ setAppState }) {
     setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
   }
 
-  const handleOnSubmit = async () => {
-    setIsLoading(true)
+  const handleOnSubmit = async (e) => {
     setErrors((e) => ({ ...e, form: null }))
-
-    if (form.passwordConfirm !== form.password) {
-      setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
-      setIsLoading(false)
-      return
-    } else {
-      setErrors((e) => ({ ...e, passwordConfirm: null }))
-    }
-
-    try {
-      const res = await axios.post("http://localhost:3001/auth/register", {
-        email: form.email,
-        username: form.username,
-        firstName: form.firstName,
-        lastName: form.lastName,
-        password: form.password,
-        passwordConfirm: form.passConfirm,
-      })
-
-      if (res?.data?.user) {
-        setAppState(res.data)
-        setIsLoading(false)
-        navigate("/login")
-      } else {
-        setErrors((e) => ({ ...e, form: "Something went wrong with registration" }))
-        setIsLoading(false)
-      }
-    } catch (err) {
-      console.log(err)
-      const message = err?.response?.data?.error?.message
-      setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
-      setIsLoading(false)
+    const registered = await registerUser(form)
+    if (registered) {
+      navigate("/activity")
     }
   }
+
+
 
   return (
     <div className="Register">
@@ -163,8 +139,8 @@ export default function RegistrationPage({ setAppState }) {
           {errors.passwordConfirm && <span className="error">{errors.passwordConfirm}</span>}
         </div>
 
-        <button className="btn" disabled={isLoading} onClick={handleOnSubmit}>
-          {isLoading ? "Loading..." : "Create Account"}
+        <button className="btn" onClick={handleOnSubmit}>
+          { isProcessing ? "Loading" : "Register" }
         </button>
       </div>
 

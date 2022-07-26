@@ -3,10 +3,10 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import "./LoginPage.css"
+import ApiClient from "../../services/apiClient"
 
 export default function LoginPage({ setAppState }) {
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [form, setForm] = useState({
     email: "",
@@ -27,27 +27,36 @@ export default function LoginPage({ setAppState }) {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
     setErrors((e) => ({ ...e, form: null }))
 
-    try {
-      const res = await axios.post(`http://localhost:3001/auth/login`, form) // post the form and see if contents are valid
-      if (res?.data) {
-        setAppState(res.data)
-        setIsLoading(false)
-        navigate("/activity")
-        console.log(JSON.stringify(res.data))
-      } else {
-        setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-        setIsLoading(false)
-        console.log(JSON.stringify(res.data))
-      }
-    } catch (err) {
-      console.log(err)
-      const message = err?.response?.data?.error?.message
-      setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
-      setIsLoading(false)
+
+    const { data, err } = await ApiClient.loginUser({ email: form.email, password: form.password })
+    if (error) setErrors((e) => ({ ...e, form: error }))
+    if (data?.user) {
+      ApiClient.setToken(data.token)
+      navigate("/activity")
     }
+
+    /*
+      try {
+        const res = await axios.post(`http://localhost:3001/auth/login`, form) // post the form and see if contents are valid
+        if (res?.data) {
+          setAppState(res.data)
+          setIsLoading(false)
+          navigate("/activity")
+          console.log(JSON.stringify(res.data))
+        } else {
+          setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
+          setIsLoading(false)
+          console.log(JSON.stringify(res.data))
+        }
+      } catch (err) {
+        console.log(err)
+        const message = err?.response?.data?.error?.message
+        setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
+        setIsLoading(false)
+      }
+      */
   }
 
   return (
@@ -78,8 +87,7 @@ export default function LoginPage({ setAppState }) {
           {/* {errors.password && <span className="error">{errors.password}</span>} */}
         </div>
 
-        <button className="btn" disabled={isLoading} onClick={handleOnSubmit}>
-          {isLoading ? "Loading..." : "Login"}
+        <button className="btn" onClick={handleOnSubmit}>
         </button>
       </div>
 

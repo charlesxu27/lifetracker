@@ -1,14 +1,17 @@
 import axios from "axios"
-import { API_BASE_URL } from "../constants"
+import API_BASE_URL from "../constants"
+
 
 class ApiClient {
     constructor(remoteHostUrl) {
         this.remoteHostUrl = remoteHostUrl
         this.token = null
+        this.tokenName = "lifetracker_token"
     }
 
     setToken(token) {
         this.token = token
+        localStorage.setItem(this.tokenName, token)
     }
 
     async request({ endpoint, method = "GET", data = {} }) {
@@ -46,11 +49,16 @@ class ApiClient {
         return await this.request({ endpoint: 'auth/me', method: 'GET' })
     }
 
+    async logoutUser() {
+        this.setToken(null)
+        localStorage.removeItem(this.tokenName)
+    }
+
 
 
 }
 
 
-module.export = new ApiClient(API_BASE_URL)
+export default new ApiClient(API_BASE_URL)
 
 
