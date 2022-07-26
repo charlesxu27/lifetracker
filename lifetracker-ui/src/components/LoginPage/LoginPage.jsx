@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
 import "./LoginPage.css"
-import ApiClient from "../../services/apiClient"
+import { useAuthContext } from '../../contexts/auth'
 
 export default function LoginPage({ setAppState }) {
+
+  const { user, setUser, error, setError, loginUser, authorized, setAuthorized } = useAuthContext()
+
   const navigate = useNavigate()
   const [errors, setErrors] = useState({})
   const [form, setForm] = useState({
@@ -25,38 +27,15 @@ export default function LoginPage({ setAppState }) {
     setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
   }
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault()
+  const handleOnSubmit = async (event) => {
+    event.preventDefault()
     setErrors((e) => ({ ...e, form: null }))
 
-
-    const { data, err } = await ApiClient.loginUser({ email: form.email, password: form.password })
-    if (error) setErrors((e) => ({ ...e, form: error }))
-    if (data?.user) {
-      ApiClient.setToken(data.token)
+    await loginUser(form)
+    console.log(1000, user?.email)
+    if (user?.email) {
       navigate("/activity")
     }
-
-    /*
-      try {
-        const res = await axios.post(`http://localhost:3001/auth/login`, form) // post the form and see if contents are valid
-        if (res?.data) {
-          setAppState(res.data)
-          setIsLoading(false)
-          navigate("/activity")
-          console.log(JSON.stringify(res.data))
-        } else {
-          setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-          setIsLoading(false)
-          console.log(JSON.stringify(res.data))
-        }
-      } catch (err) {
-        console.log(err)
-        const message = err?.response?.data?.error?.message
-        setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
-        setIsLoading(false)
-      }
-      */
   }
 
   return (
@@ -72,7 +51,7 @@ export default function LoginPage({ setAppState }) {
             value={form.email}
             onChange={handleOnInputChange}
           />
-          {/* {errors.email && <span className="error">{errors.email}</span>} */}
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
 
         <div className="input-field">
@@ -84,10 +63,11 @@ export default function LoginPage({ setAppState }) {
             value={form.password}
             onChange={handleOnInputChange}
           />
-          {/* {errors.password && <span className="error">{errors.password}</span>} */}
+          {errors.password && <span className="error">{errors.password}</span>}
         </div>
 
         <button className="btn" onClick={handleOnSubmit}>
+          Login
         </button>
       </div>
 

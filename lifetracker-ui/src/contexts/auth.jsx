@@ -12,9 +12,11 @@ export function AuthContextProvider({ children }) {
 
     const loginUser = async (credentials) => {
         const { data, error } = await ApiClient.loginUser(credentials)
+        console.log(data, error)
         if (error) { setError(error) }
         if (data?.user) {
             // if logged in successfully
+            setUser(data.user)
             ApiClient.setToken(data.token)
             setAuthorized(true)
         }
@@ -22,8 +24,10 @@ export function AuthContextProvider({ children }) {
 
     const registerUser = async (credentials) => {
         const { data, error } = await ApiClient.registerUser(credentials)
+        console.log(data, error)
         if (error) { setError(error) }
         if (data?.user) {
+            setUser(data.user)
             ApiClient.setToken(data.token)
             setAuthorized(true)
         }
@@ -43,18 +47,24 @@ export function AuthContextProvider({ children }) {
         await ApiClient.logoutUser()
     }
 
+    const authVars = {
+        user,
+        setUser,
+        initialized,
+        setInitialized,
+        isProcessing,
+        setIsProcessing,
+        error,
+        setError,
+        loginUser,
+        registerUser,
+        logoutUser,
+        authorized,
+        setAuthorized
+    }
 
     return (
-        <AuthContext.Provider value={{
-            user, setUser,
-            initialized, setInitialized,
-            isProcessing, setIsProcessing,
-            error, setError,
-            loginUser,
-            signupUser,
-            logoutUser,
-            authorized, setAuthorized
-        }} >
+        <AuthContext.Provider value={authVars} >
             {children}
         </AuthContext.Provider>
     )

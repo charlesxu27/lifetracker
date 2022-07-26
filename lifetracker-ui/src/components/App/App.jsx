@@ -9,8 +9,19 @@ import ActivityPage from "../ActivityPage/ActivityPage"
 import NutritionPage from "../NutritionPage/NutritionPage"
 import RegistrationPage from "../RegistrationPage/RegistrationPage"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
+import { AuthContextProvider } from "../../contexts/auth"
 
-export default function App() {
+export default function AppContainer() {
+  // ensure all components have access to context values
+  return (
+    <AuthContextProvider>
+      <App/>
+    </AuthContextProvider>
+  )
+}
+
+
+export function App() {
   const [appState, setAppState] = useState({}) // keeps track of user login status
 
   return (

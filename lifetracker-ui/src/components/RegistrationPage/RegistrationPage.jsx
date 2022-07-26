@@ -1,13 +1,12 @@
 import React from 'react'
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import "./RegistrationPage.css"
-import ApiClient from "../../services/apiClient"
 import { useAuthContext } from '../../contexts/auth'
 
 export default function RegistrationPage() {
 
-  const { user, setUser, isProcessing, setIsProcessing, error, setError, authorized, registerUser } = useAuthContext
+  const { user, setUser, isProcessing, setIsProcessing, error, setError, authorized, registerUser } = useAuthContext()
 
   const navigate = useNavigate()
   const [errors, setErrors] = useState([])
@@ -47,15 +46,13 @@ export default function RegistrationPage() {
     setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
   }
 
-  const handleOnSubmit = async (e) => {
+  const handleOnSubmit = async () => {
     setErrors((e) => ({ ...e, form: null }))
-    const registered = await registerUser(form)
-    if (registered) {
-      navigate("/activity")
+    await registerUser(form)
+    if (user?.email) {
+      navigate("/login")
     }
   }
-
-
 
   return (
     <div className="Register">
