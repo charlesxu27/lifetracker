@@ -2,6 +2,10 @@
 
 Submitted by: **Charles Xu**
 
+### Walkthrough Video
+
+<img src='walkthrough.gif' title='Video Walkthrough' width=800px alt='Video Walkthrough' />
+
 Deployed Application: [Lifetracker Deployed Site](https://lifetracker-app-1.herokuapp.com)
 
 ## Application Features
@@ -33,10 +37,6 @@ Implement any of the following features to improve the application:
 - [ ] Provide a dropdown that allows users to filter activity based on a certain attribute of any activity item.
 - [ ] Calculate aggregate statistics based on time periods - such as daily, weekly, monthly aggregates.
 - [ ] Create a page that shows all other users that use the life tracker application and allow users to follow each other.
-
-### Walkthrough Video
-
-<img src='walkthrough.gif' title='Video Walkthrough' width=800px alt='Video Walkthrough' />
 
 ### Reflection
 
