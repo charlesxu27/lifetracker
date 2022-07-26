@@ -5,6 +5,7 @@ const { PORT } = require("./config")
 require("colors")
 const authRoutes = require("./routes/auth")
 const nutritionRoutes = require("./routes/nutrition")
+const activityRoutes = require("./routes/activity")
 const { BadRequestError, NotFoundError } = require("./utils/errors")
 const app = express()
 const security = require("./middleware/security")
@@ -20,7 +21,7 @@ app.use(security.extractUserFromJwt)
 
 // access the authentication routes
 app.use("/auth", authRoutes)
-// access the posts routes
+app.use("/activity", activityRoutes)
 app.use("/nutrition", nutritionRoutes)
 // if no response (aka we call next()), then we continue with middleware layers below
 

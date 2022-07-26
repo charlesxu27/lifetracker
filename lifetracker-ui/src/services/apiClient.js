@@ -29,7 +29,7 @@ class ApiClient {
         try {
             const res = await axios({ url, method, data, headers })
             return { data: res.data, error: null }
-        } catch {
+        } catch(error) {
             // console.error({ errorResponse: error.response })
             // optional chaining example
             const message = error?.response?.data?.error?.message
@@ -54,7 +54,21 @@ class ApiClient {
         localStorage.removeItem(this.tokenName)
     }
 
+    async calculateSummaryStats() {
+        return await this.request( { endpoint:"activity/", method:'GET' } )
+    }
 
+    async fetchNutritionForUser() {
+        return await this.request({ endpoint:"nutrition/", method:'GET' })
+    }
+
+    async createNutrition(nutritionForm) {
+        return await this.request({ endpoint:"nutrition/", method:'POST', data:nutritionForm })
+    }
+
+    async fetchNutrition(nutritionId) {
+        return await this.request({ endpoint:`nutrition/${nutritionId}`, method:'GET' })
+    }
 
 }
 
