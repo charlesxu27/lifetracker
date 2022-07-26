@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Navbar.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom"
+import { useAuthContext } from "../../contexts/auth"
 
 
 export default function Navbar(props) {
@@ -22,26 +23,30 @@ export function Logo() {
 }
 
 export function NavLinks(props) {
-    if (props.appState.user) {
-        return (
-            <div className='navlink'>
-                <Link className="links" to="/activity"> Activity </Link>
-                <Link className="links" to="/exercise"> Exercise </Link>
-                <Link className="links" to="/nutrition"> Nutrition </Link>
-                <Link className='links' to="/" onClick={() => {props.setAppState({})}}>Logout</Link>
-            </div>
-        )
-    } else {
-        return (
-            <div className='navlink'>
-                <Link className="links" to="/activity"> Activity </Link>
-                <Link className="links" to="/exercise"> Exercise </Link>
-                <Link className="links" to="/nutrition"> Nutrition </Link>
-                <Link className='links' to="/login">Login</Link>
-                <Link className='links' to="/register">Sign Up</Link>
-            </div>
-        )
-    }
+
+    const { user, authorized, logoutUser } = useAuthContext()
+    const navigate = useNavigate()
+  
+    const handleLogout = () => {
+      logoutUser()
+      navigate("/")
+    } 
+
+    return (
+        <div className="navlink">
+          {/* <p>{user?.email ? user.email : null}</p> */}
+          <Link to="/activity" className="links">Activity</Link>
+          <Link to="/nutrition" className="links">Nutrition</Link>
+          <span className="links">Sleep</span>
+          <span className="links">Exercise</span>
+          {user?.email
+            ? <span className="logout-button links" onClick={handleLogout}>Logout</span>
+            :  <Link to="/login" className="links">Login</Link>}
+          {user?.email
+            ? null
+            : <Link to="/register" className="links">Sign Up</Link>}
+        </div>
+      )
 }
 
 
