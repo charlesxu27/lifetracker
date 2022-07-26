@@ -6,6 +6,8 @@ const security = require("../middleware/security")
 router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const { userId } = res.locals.user
+        console.log("userId from nutrition route", userId)
+
         const nutritionList = await Nutrition.listNutritionForUser(userId)
         return res.status(200).json({ nutritions:nutritionList })
     } catch (err) {

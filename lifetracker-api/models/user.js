@@ -7,6 +7,7 @@ class User {
 
     static makePublicUser(user) {
         return {
+            id: user.id,
             username: user.username,
             password: user.password,
             firstName: user.first_name,
@@ -80,7 +81,7 @@ class User {
             email
         )
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING username, password, first_name, last_name, email;
+        RETURNING id, username, password, first_name, last_name, email;
         `, [credentials.username, hashedPassword, credentials.firstName, credentials.lastName, normalizedEmail])
         // return the user
         const user = userResult.rows[0]

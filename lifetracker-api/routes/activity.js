@@ -6,6 +6,7 @@ const security = require("../middleware/security")
 router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const { userId } = res.locals.user
+        console.log("userId", userId)
         
         const caloriesPerDay = await Activity.calculateDailyCaloriesSummaryStats(userId)
         const caloriesPerCategory = await Activity.calculatePerCategoryCaloriesSummaryStats(userId)
