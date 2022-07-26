@@ -6,7 +6,7 @@ Submitted by: **Charles Xu**
 
 <img src='walkthrough.gif' title='Video Walkthrough' width=800px alt='Video Walkthrough' />
 
-Deployed Application: [Lifetracker Deployed Site](https://lifetracker-app-1.herokuapp.com)
+Deployed Application: [Lifetracker Deployed Site](https://lifetracker-app-cx.herokuapp.com)
 
 ## Application Features
 
